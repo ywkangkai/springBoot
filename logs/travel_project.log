@@ -1,0 +1,82 @@
+2025-07-07 14:30:04.033  INFO 18452 --- [main] c.e.t.TravelProjectApplication           : Starting TravelProjectApplication using Java 1.8.0_131 on DELL with PID 18452 (C:\Users\DE\Desktop\travel_project\target\classes started by DE in C:\Users\DE\Desktop\travel_project)
+2025-07-07 14:30:04.035 DEBUG 18452 --- [main] c.e.t.TravelProjectApplication           : Running with Spring Boot v2.6.13, Spring v5.3.23
+2025-07-07 14:30:04.036  INFO 18452 --- [main] c.e.t.TravelProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-07-07 14:30:04.645  INFO 18452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-07 14:30:04.646  INFO 18452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-07-07 14:30:04.666  INFO 18452 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2025-07-07 14:30:04.753  WARN 18452 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'projectMapper' and 'com.example.travel_project.mapper.ProjectMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:30:04.753  WARN 18452 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'taskMapper' and 'com.example.travel_project.mapper.TaskMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:30:04.753  WARN 18452 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.example.travel_project.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:30:04.754  WARN 18452 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.travel_project.mapper]' package. Please check your configuration.
+2025-07-07 14:30:05.082  INFO 18452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8085 (http)
+2025-07-07 14:30:05.088  INFO 18452 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-07 14:30:05.089  INFO 18452 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2025-07-07 14:30:05.289  INFO 18452 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-07 14:30:05.290  INFO 18452 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1221 ms
+2025-07-07 14:30:09.202  INFO 18452 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-07 14:30:09.204  WARN 18452 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2025-07-07 14:30:10.715  INFO 18452 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-07 14:30:10.777  INFO 18452 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 8.0.5 by Redgate
+2025-07-07 14:30:10.777  INFO 18452 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://10.12.251.118:3306/travel (MySQL 8.0)
+2025-07-07 14:30:11.541  INFO 18452 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.289s)
+2025-07-07 14:30:11.933  INFO 18452 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `travel`: 5.5
+2025-07-07 14:30:11.971  INFO 18452 --- [main] o.f.core.internal.command.DbMigrate      : Schema `travel` is up to date. No migration necessary.
+2025-07-07 14:30:12.298  INFO 18452 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8085 (http) with context path ''
+2025-07-07 14:30:12.915  INFO 18452 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-07-07 14:30:12.921  INFO 18452 --- [main] c.e.t.TravelProjectApplication           : Started TravelProjectApplication in 9.176 seconds (JVM running for 10.419)
+2025-07-07 14:30:17.455  INFO 18452 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-07-07 14:30:17.463  INFO 18452 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-07-07 14:42:20.219  INFO 17224 --- [main] c.e.t.TravelProjectApplication           : Starting TravelProjectApplication using Java 1.8.0_131 on DELL with PID 17224 (C:\Users\DE\Desktop\travel_project\target\classes started by DE in C:\Users\DE\Desktop\travel_project)
+2025-07-07 14:42:20.221 DEBUG 17224 --- [main] c.e.t.TravelProjectApplication           : Running with Spring Boot v2.6.13, Spring v5.3.23
+2025-07-07 14:42:20.221  INFO 17224 --- [main] c.e.t.TravelProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-07-07 14:42:20.864  INFO 17224 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-07 14:42:20.866  INFO 17224 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-07-07 14:42:20.888  INFO 17224 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2025-07-07 14:42:20.980  WARN 17224 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'projectMapper' and 'com.example.travel_project.mapper.ProjectMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:42:20.981  WARN 17224 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'taskMapper' and 'com.example.travel_project.mapper.TaskMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:42:20.981  WARN 17224 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.example.travel_project.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:42:20.981  WARN 17224 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.travel_project.mapper]' package. Please check your configuration.
+2025-07-07 14:42:21.356  INFO 17224 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8085 (http)
+2025-07-07 14:42:21.364  INFO 17224 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-07 14:42:21.364  INFO 17224 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2025-07-07 14:42:21.592  INFO 17224 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-07 14:42:21.593  INFO 17224 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1342 ms
+2025-07-07 14:42:25.468  INFO 17224 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-07 14:42:25.470  WARN 17224 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2025-07-07 14:42:26.831  INFO 17224 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-07 14:42:26.894  INFO 17224 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 8.0.5 by Redgate
+2025-07-07 14:42:26.894  INFO 17224 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://10.12.251.118:3306/travel (MySQL 8.0)
+2025-07-07 14:42:27.643  INFO 17224 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.279s)
+2025-07-07 14:42:28.032  INFO 17224 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `travel`: 5.5
+2025-07-07 14:42:28.071  INFO 17224 --- [main] o.f.core.internal.command.DbMigrate      : Schema `travel` is up to date. No migration necessary.
+2025-07-07 14:42:28.372  INFO 17224 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8085 (http) with context path ''
+2025-07-07 14:42:28.970  INFO 17224 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-07-07 14:42:28.976  INFO 17224 --- [main] c.e.t.TravelProjectApplication           : Started TravelProjectApplication in 9.027 seconds (JVM running for 10.559)
+2025-07-07 14:42:56.821  INFO 17224 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-07-07 14:42:56.828  INFO 17224 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-07-07 14:46:52.646  INFO 21780 --- [main] c.e.t.TravelProjectApplication           : Starting TravelProjectApplication using Java 1.8.0_131 on DELL with PID 21780 (C:\Users\DE\Desktop\travel_project - 副本\target\classes started by DE in C:\Users\DE\Desktop\travel_project - 副本)
+2025-07-07 14:46:52.649 DEBUG 21780 --- [main] c.e.t.TravelProjectApplication           : Running with Spring Boot v2.6.13, Spring v5.3.23
+2025-07-07 14:46:52.650  INFO 21780 --- [main] c.e.t.TravelProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2025-07-07 14:46:53.413  INFO 21780 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2025-07-07 14:46:53.415  INFO 21780 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-07-07 14:46:53.439  INFO 21780 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2025-07-07 14:46:53.541  WARN 21780 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'projectMapper' and 'com.example.travel_project.mapper.ProjectMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:46:53.542  WARN 21780 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'taskMapper' and 'com.example.travel_project.mapper.TaskMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:46:53.542  WARN 21780 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Skipping MapperFactoryBean with name 'userMapper' and 'com.example.travel_project.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2025-07-07 14:46:53.542  WARN 21780 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.example.travel_project.mapper]' package. Please check your configuration.
+2025-07-07 14:46:53.975  INFO 21780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8085 (http)
+2025-07-07 14:46:53.982  INFO 21780 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-07-07 14:46:53.982  INFO 21780 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.68]
+2025-07-07 14:46:54.193  INFO 21780 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-07-07 14:46:54.193  INFO 21780 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1501 ms
+2025-07-07 14:46:57.951  INFO 21780 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-07-07 14:46:57.953  WARN 21780 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2025-07-07 14:46:59.324  INFO 21780 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-07-07 14:46:59.385  INFO 21780 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 8.0.5 by Redgate
+2025-07-07 14:46:59.386  INFO 21780 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://10.12.251.118:3306/travel (MySQL 8.0)
+2025-07-07 14:47:00.139  INFO 21780 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.288s)
+2025-07-07 14:47:00.524  INFO 21780 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `travel`: 5.5
+2025-07-07 14:47:00.563  INFO 21780 --- [main] o.f.core.internal.command.DbMigrate      : Schema `travel` is up to date. No migration necessary.
+2025-07-07 14:47:00.878  INFO 21780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8085 (http) with context path ''
+2025-07-07 14:47:01.474  INFO 21780 --- [main] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-07-07 14:47:01.481  INFO 21780 --- [main] c.e.t.TravelProjectApplication           : Started TravelProjectApplication in 9.14 seconds (JVM running for 10.682)

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.travel_project.mapper.ProjectMapper">
+
+	<select id="queryByName" resultType="ProjectEntity" parameterType="java.lang.String">
+		SELECT * FROM tb_project where name = #{name}
+	</select>
+
+
+	<!--注意leader_id = #{LeaderId} 前面leader_id是数据库的名称，后面LeaderId是对象类定义的名称，传参按对象类型名称给key-->
+	<update id="updateProject" parameterType="ProjectEntity">
+		UPDATE tb_project
+		SET name = #{name}, description = #{description}, leader_id = #{LeaderId},leader_name = #{LeaderName},
+		    is_deleted = #{isDeleted}
+		WHERE id = #{id}
+	</update>
+</mapper>
