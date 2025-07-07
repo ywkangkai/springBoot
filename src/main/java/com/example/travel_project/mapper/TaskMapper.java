@@ -15,5 +15,5 @@ public interface TaskMapper extends BaseMapper<TaskEntity> {
 
     List<TaskEntity> selectTasks(TaskEntity taskEntity);
 
-    TaskEntity selectByNameAndProjectId(String name, Integer projectId);
+    TaskEntity selectByNameAndProjectId(TaskEntity taskEntity);
 }

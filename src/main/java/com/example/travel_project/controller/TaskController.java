@@ -19,9 +19,9 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-    @GetMapping("/query")
-    public ResponseData<List<TaskEntity>> queryTasks(@RequestBody TaskEntity taskEntity, @RequestParam(value = "pageNum", defaultValue = "") int pageNum,
-                                                     @RequestParam(value = "pageNum", defaultValue = "10") int pageSize) {
+    @PostMapping("/query")
+    public ResponseData<List<TaskEntity>> queryTasks(@RequestBody TaskEntity taskEntity, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         return taskService.queryTasks(taskEntity, pageNum, pageSize);
     }
 

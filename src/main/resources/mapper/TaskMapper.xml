@@ -33,7 +33,7 @@
 		</where>
 	</select>
 
-	<select id="">
+	<select id="selectByNameAndProjectId" resultType="TaskEntity" parameterType="TaskEntity">
 		<include refid="task"></include>
 		<where>
 		  AND name = #{name} AND project_id = #{projectId}

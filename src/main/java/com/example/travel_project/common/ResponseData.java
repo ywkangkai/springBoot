@@ -99,7 +99,6 @@ public class ResponseData<T> implements Serializable {
         ResponseData responseData = new ResponseData();
         responseData.setCode(200);
         responseData.setMessage(errorMessage);
-
         return responseData;
     }
 

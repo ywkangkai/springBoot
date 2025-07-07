@@ -69,7 +69,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
             return responseData;
         }
         try {
-           TaskEntity task = baseMapper.selectByNameAndProjectId(taskEntity.getName(), taskEntity.getProjectId());
+           TaskEntity task = baseMapper.selectByNameAndProjectId(taskEntity);
            if (task != null){
                responseData = ResponseData.failure("任务名称已存在");
                 return responseData;
