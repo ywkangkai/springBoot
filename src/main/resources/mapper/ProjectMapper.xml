@@ -14,6 +14,7 @@
 		   <result property="name" column="module_name"/>
 		   <result property="description" column="moduleDescription"/>
 		   <result property="isDelete" column="is_delete"/>
+		   <result property="projectId" column="project_id"/>
 	   </collection>
    </resultMap>
 
@@ -42,7 +43,8 @@
 			m.id AS module_id,
 			m.name AS module_name,
 			m.description AS moduleDescription,
-			m.is_delete
+			m.is_delete,
+			m.project_id
 		FROM
 			tb_project p
 				LEFT JOIN
@@ -51,5 +53,28 @@
 				p.id = m.project_id
 		WHERE
 			p.is_deleted = 0 AND (m.is_delete = 0 OR m.is_delete IS NULL);
+	</select>
+
+	<select id="queryById" resultMap="ProjectWithM">
+		SELECT
+			p.id,
+			p.name,
+			p.leader_id,
+			p.description,
+			p.leader_name,
+			p.is_deleted,
+			m.id AS module_id,
+			m.name AS module_name,
+			m.description AS moduleDescription,
+			m.is_delete,
+			m.project_id
+		FROM
+			tb_project p
+				LEFT JOIN
+			tb_module m
+			ON
+				p.id = m.project_id
+		WHERE
+			p.is_deleted = 0 AND (m.is_delete = 0 OR m.is_delete IS NULL) AND p.id = #{id};
 	</select>
 </mapper>

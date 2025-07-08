@@ -10,6 +10,7 @@ import lombok.Data;
 public class TaskModuleEntity extends BaseEntity {
     @TableId(type = IdType.AUTO)
     private Integer id;
+    private String name;
     private Integer taskId;
     private Integer moduleId;
 }

@@ -15,4 +15,6 @@ public interface TaskService extends IService<TaskEntity> {
     ResponseData<List<TaskEntity>> queryTasks(TaskEntity taskEntity, int pageNum, int pageSize);
 
     ResponseData<TaskEntity> update(TaskEntity taskEntity);
+
+    ResponseData runTask(int projectId, int taskId);
 }

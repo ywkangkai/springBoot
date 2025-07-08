@@ -39,4 +39,10 @@
 		  AND name = #{name} AND project_id = #{projectId}
 		</where>
 	</select>
+
+	<update id="updateIsArchive" parameterType="int">
+		UPDATE tb_task
+		SET is_archive = 1
+		WHERE id = #{id}
+	</update>
 </mapper>

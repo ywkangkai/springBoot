@@ -9,7 +9,9 @@ import com.example.travel_project.common.ResponseData;
 import com.example.travel_project.dto.input.task.TaskInputDto;
 import com.example.travel_project.entity.ProjectEntity;
 import com.example.travel_project.entity.TaskEntity;
+import com.example.travel_project.mapper.ProjectMapper;
 import com.example.travel_project.mapper.TaskMapper;
+import com.example.travel_project.mapper.TaskModuleMapper;
 import com.example.travel_project.service.TaskService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -23,6 +25,10 @@ import java.util.List;
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> implements TaskService {
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    ProjectMapper projectMapper;
+    @Autowired
+    TaskModuleMapper taskModuleMapper;
     @Override
     public ResponseData<TaskEntity> createTask(TaskInputDto taskInputDto) {
         ResponseData<TaskEntity> responseData;
@@ -82,4 +88,22 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
         }
         return responseData;
     }
+
+    @Override
+    public ResponseData runTask(int ProjectId, int taskId){
+        ResponseData responseData;
+        try{
+            baseMapper.updateIsArchive(taskId);
+            ProjectEntity pro = projectMapper.queryById(ProjectId);
+            int module_id = pro.getModules().get(0).getId();
+            taskModuleMapper.insertTaskModule(taskId, module_id);
+            responseData = ResponseData.success("运行成功");
+        }catch (Exception e) {
+            e.printStackTrace();
+            responseData = ResponseData.failure("运行失败: " + e.getMessage());
+        }
+        return responseData;
+    }
+
+
 }

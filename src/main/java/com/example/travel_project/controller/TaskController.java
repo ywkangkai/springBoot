@@ -34,4 +34,10 @@ public class TaskController {
     public ResponseData<TaskEntity> updateTask(@RequestBody @Validated TaskEntity taskEntity) {
         return taskService.update(taskEntity);
     }
+
+    @PostMapping("/run")
+    public ResponseData runTask(@RequestParam("projectId") int projectId,
+                                            @RequestParam("taskId") int taskId) {
+        return taskService.runTask(projectId, taskId);
+    }
 }
