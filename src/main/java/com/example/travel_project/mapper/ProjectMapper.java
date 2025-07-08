@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.travel_project.common.ResponseData;
 import com.example.travel_project.entity.ProjectEntity;
 
+import java.util.List;
+
 public interface ProjectMapper extends BaseMapper<ProjectEntity> {
     // 这里可以添加自定义的查询方法，如果需要的话
     ProjectEntity queryByName(String name);
 
     int updateProject(ProjectEntity inputDto);
+
+    List<ProjectEntity> ProjectWithModules();
 }

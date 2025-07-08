@@ -15,7 +15,7 @@ import java.util.List;
 @Tag(name="项目管理", description = "项目管理")
 @RestController
 @RequestMapping("/project")
-@UserRight(roles = {"admin", "staff"})
+//@UserRight(roles = {"admin", "staff"})
 public class ProjectController {
     @Autowired
     ProjectService projectService;
@@ -46,5 +46,10 @@ public class ProjectController {
     @PostMapping("/delete")
     public ResponseData<Void> Delete(@RequestParam Integer id) {
         return projectService.Delete(id);
+    }
+
+    @GetMapping("/queryWithModules")
+    public ResponseData<List<ProjectEntity>> queryWithModules() {
+        return projectService.queryWithModules();
     }
 }

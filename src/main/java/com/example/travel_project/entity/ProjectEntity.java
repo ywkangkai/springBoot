@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -20,4 +21,5 @@ public class ProjectEntity extends BaseEntity{
     private Boolean isDeleted;
     @TableField(exist = false) // 非数据库字段
     private List<ModuleEntity> modules; // 关联的模块实体
+
 }

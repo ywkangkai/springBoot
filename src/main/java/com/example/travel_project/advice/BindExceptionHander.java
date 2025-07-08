@@ -1,6 +1,7 @@
 package com.example.travel_project.advice;
 
 import com.example.travel_project.common.ResponseData;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -46,13 +47,14 @@ public class BindExceptionHander {
         ResponseData responseData = new ResponseData();
         responseData.setCode(400);
         responseData.setMessage(errors.stream().collect(Collectors.joining(",")));
-        String josn = new ObjectMapper().writeValueAsString(responseData);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        String josn = objectMapper.writeValueAsString(responseData);
         //设置响应的状态码为 400
         response.setStatus(400);
         //设置响应的内容类型为 JSON
         response.setContentType("application/json");
         // 将 JSON 字符串写入 HTTP 响应体
         response.getWriter().println(josn);
-
     }
 }

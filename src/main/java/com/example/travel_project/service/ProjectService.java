@@ -21,4 +21,6 @@ public interface ProjectService extends IService<ProjectEntity> {
     ResponseData<ProjectEntity> update(ProjectEntity inputDto);
 
     ResponseData Delete(Integer id);
+
+    ResponseData<List<ProjectEntity>> queryWithModules();
 }

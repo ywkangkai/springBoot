@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.travel_project.mapper.ProjectMapper">
+	<!--property是实体类中定义的名称，colum是数据库中定义的名称	-->
+   <resultMap id="ProjectWithM" type="ProjectEntity">
+	   <id property="id" column="id"/>
+	   <result property="name" column="name"></result>
+	   <result property="leaderId" column="leader_id"/>
+	   <result property="leaderName" column="leader_name"/>
+	   <result property="description" column="description"/>
+	   <result property="isDeleted" column="is_deleted"/>
+	   <collection property="modules" ofType="ModuleEntity">
+		   <id property="id" column="module_id"/>
+		   <result property="name" column="module_name"/>
+		   <result property="description" column="moduleDescription"/>
+		   <result property="isDelete" column="is_delete"/>
+	   </collection>
+   </resultMap>
+
 
 	<select id="queryByName" resultType="ProjectEntity" parameterType="java.lang.String">
 		SELECT * FROM tb_project where name = #{name}
@@ -14,4 +30,26 @@
 		    is_deleted = #{isDeleted}
 		WHERE id = #{id}
 	</update>
+
+	<select id="ProjectWithModules" resultMap="ProjectWithM">
+		SELECT
+			p.id,
+			p.name,
+			p.leader_id,
+			p.description,
+			p.leader_name,
+			p.is_deleted,
+			m.id AS module_id,
+			m.name AS module_name,
+			m.description AS moduleDescription,
+			m.is_delete
+		FROM
+			tb_project p
+				LEFT JOIN
+			tb_module m
+			ON
+				p.id = m.project_id
+		WHERE
+			p.is_deleted = 0 AND (m.is_delete = 0 OR m.is_delete IS NULL);
+	</select>
 </mapper>

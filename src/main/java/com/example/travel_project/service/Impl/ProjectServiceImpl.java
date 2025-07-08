@@ -135,4 +135,17 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, ProjectEntity
         }
     }
 
+    @Override
+    public ResponseData<List<ProjectEntity>> queryWithModules() {
+        ResponseData<List<ProjectEntity>> responseData;
+        try {
+            List<ProjectEntity> projectList = baseMapper.ProjectWithModules();
+            responseData = ResponseData.success(projectList);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            responseData = ResponseData.failure(ex.getMessage());
+        }
+        return responseData;
+    }
+
 }
