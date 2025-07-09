@@ -18,4 +18,6 @@ public interface TaskMapper extends BaseMapper<TaskEntity> {
     TaskEntity selectByNameAndProjectId(TaskEntity taskEntity);
 
     void updateIsArchive(int taskId);
+
+    List<TaskEntity> task_all();
 }

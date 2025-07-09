@@ -9,6 +9,7 @@ import com.example.travel_project.common.ResponseData;
 import com.example.travel_project.dto.input.task.TaskInputDto;
 import com.example.travel_project.entity.ProjectEntity;
 import com.example.travel_project.entity.TaskEntity;
+import com.example.travel_project.entity.UserEntity;
 import com.example.travel_project.mapper.ProjectMapper;
 import com.example.travel_project.mapper.TaskMapper;
 import com.example.travel_project.mapper.TaskModuleMapper;
@@ -105,5 +106,24 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, TaskEntity> impleme
         return responseData;
     }
 
+    //分页查询
+    public ResponseData<List<TaskEntity>> queryAll(int pageNum, int pageSize) {
+//        方式一
+//        LambdaQueryWrapper<TaskEntity> queryWrapper = new LambdaQueryWrapper<>();
+//        IPage<TaskEntity> page = new Page<>(pageNum, pageSize);
+//        super.page(page, queryWrapper);
+//        List<TaskEntity> taskList = page.getRecords();
+//        Long total = page.getTotal();
+//
+//        return ResponseData.success(taskList, total, (int) page.getSize(), (int) page.getCurrent());
+//      方式二：
+        LambdaQueryWrapper<TaskEntity> queryWrapper = new LambdaQueryWrapper<>();
+        IPage<TaskEntity> page = baseMapper.selectPage(new Page<>(pageNum, pageSize), queryWrapper);
+        List<TaskEntity> taskList = page.getRecords();
+        Long total = page.getTotal();
+        return ResponseData.success(taskList, total, (int) page.getSize(), (int) page.getCurrent());
+    }
+
 
 }
+

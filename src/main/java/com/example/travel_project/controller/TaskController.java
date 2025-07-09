@@ -40,4 +40,10 @@ public class TaskController {
                                             @RequestParam("taskId") int taskId) {
         return taskService.runTask(projectId, taskId);
     }
+
+    @GetMapping("/queryAll")
+    public ResponseData<List<TaskEntity>> queryAll(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                                   @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        return taskService.queryAll(pageNum, pageSize);
+    }
 }

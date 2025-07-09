@@ -45,4 +45,8 @@
 		SET is_archive = 1
 		WHERE id = #{id}
 	</update>
+
+	<select id="task_all" resultType="TaskEntity">
+		SELECT * FROM tb_task
+	</select>
 </mapper>
