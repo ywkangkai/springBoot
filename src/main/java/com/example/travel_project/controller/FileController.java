@@ -35,4 +35,9 @@ public class FileController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/delete")
+    public ResponseData deleteFile(@RequestParam String bucket, @RequestParam String fileName) {
+        return fileService.deleteFile(bucket, fileName);
+    }
 }

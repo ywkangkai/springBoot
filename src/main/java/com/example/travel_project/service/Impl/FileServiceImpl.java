@@ -30,18 +30,17 @@ import java.util.UUID;
 public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> implements FileService {
     @Value("${file.upload-dir}")
     private String uploadDir;
-    @Value("${minio.url}")
-    private String url;
-    @Value("${minio.access}")
-    private String access;
-    @Value("${minio.secret}")
-    private String secret;
-
     private MinioClient minioClient;
 
-    public MinioClient get_minioClient(){
+    public void get_minioClient(String url, String access, String secret) {
         minioClient = MinioClient.builder().endpoint(url).credentials(access, secret).build();
-        return minioClient;
+    }
+
+    public FileServiceImpl(@Value("${minio.url}") String url,
+                           @Value("${minio.access}") String access,
+                           @Value("${minio.secret}") String secret) {
+        // 初始化 MinioClient
+        this.get_minioClient(url, access, secret);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
             try {
                 File targetFile = new File(targetDir.getAbsoluteFile() + File.separator + fileName);
 //                file.transferTo(targetFile); // 保存文件到本地
-                minioClient = this.get_minioClient();
+
                 boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
                 if (!found) {
                     minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
@@ -111,6 +110,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
         }
     }
 
+
     @Override
     public void downloadFileWithMinio(String fileName, String bucket, HttpServletResponse response, HttpServletResponse request) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         // 设置响应类型
@@ -118,7 +118,6 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
         // 获取文件流
-        minioClient = this.get_minioClient();
         GetObjectResponse res = minioClient.getObject(GetObjectArgs.builder()
                 .bucket(bucket)
                 .object(fileName)
@@ -130,9 +129,16 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
         res.close();
     }
     @Override
-    public ResponseData<Void> deleteFile(Integer fileId) {
-        // 实现文件删除逻辑
-        // ...
-        return new ResponseData<>();
+    public ResponseData deleteFile(String bucket, String fileName) {
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder()
+                    .bucket(bucket) // 替换为实际的桶名
+                    .object(fileName) // 假设 fileId 是文件名
+                    .build());
+            return ResponseData.success("文件删除成功");
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.failure("删除文件失败: " + e.getMessage());
+        }
     }
 }

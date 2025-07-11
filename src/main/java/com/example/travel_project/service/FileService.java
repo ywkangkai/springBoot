@@ -30,10 +30,12 @@ public interface FileService extends IService<FileEntity> {
 
     /**
      * 删除文件
-     * @param fileId 文件ID
+     * @param  文件名
      * @return ResponseData<Void>
      */
-    ResponseData<Void> deleteFile(Integer fileId);
+    ResponseData deleteFile(String bucket, String fileName);
 
     void downloadFileWithMinio(String fileName, String bucket, HttpServletResponse response, HttpServletResponse request) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
+
 }
