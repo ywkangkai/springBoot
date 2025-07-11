@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.travel_project.dao.CategoryDao">
+<mapper namespace="com.weaver.accurate.dao.CategoryDao">
 
 	<select id="selectByPage" resultType="Category">
 		select

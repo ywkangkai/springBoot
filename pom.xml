@@ -135,6 +135,23 @@
             <version>4.11.0</version> <!-- 用于MinIO的HTTP客户端 -->
         </dependency>
 
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>9.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-tree</artifactId>
+            <version>9.4</version> <!-- 可以根据需要调整 ASM 版本 -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
 
 
 
@@ -171,7 +188,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.example.travel_project.TravelProjectApplication</mainClass>
+                    <mainClass>com.weaver.accurate.TravelProjectApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>

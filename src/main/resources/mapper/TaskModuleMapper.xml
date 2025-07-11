@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.travel_project.mapper.TaskModuleMapper">
+<mapper namespace="com.weaver.accurate.mapper.TaskModuleMapper">
 	<!--property是实体类中定义的名称，colum是数据库中定义的名称	-->
 	<insert id="insertTaskModule">
 		INSERT INTO tb_task_module (name, task_id, module_id)

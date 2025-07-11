@@ -99,7 +99,7 @@ management:
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
   # xml中编写sql时不用给全路径类名
-  type-aliases-package: com.example.travel_project.**.entity
+  type-aliases-package: com.weaver.accurate.**.entity
   configuration:
     # 下划线驼峰转换
     map-underscore-to-camel-case: true
@@ -111,7 +111,7 @@ mybatis-plus:
 logging:
   level:
     root: INFO
-    com.example.travel_project: DEBUG
+    com.example.Accurate: DEBUG
   file:
     name: logs/travel_project.log
 
