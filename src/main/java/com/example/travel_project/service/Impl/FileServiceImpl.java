@@ -5,24 +5,47 @@ import com.example.travel_project.common.ResponseData;
 import com.example.travel_project.entity.FileEntity;
 import com.example.travel_project.mapper.FileMapper;
 import com.example.travel_project.service.FileService;
+import io.minio.*;
+import io.minio.errors.*;
+import lombok.Data;
+import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
+
 @Service
+@Data
 public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> implements FileService {
     @Value("${file.upload-dir}")
     private String uploadDir;
+    @Value("${minio.url}")
+    private String url;
+    @Value("${minio.access}")
+    private String access;
+    @Value("${minio.secret}")
+    private String secret;
+
+    private MinioClient minioClient;
+
+    public MinioClient get_minioClient(){
+        minioClient = MinioClient.builder().endpoint(url).credentials(access, secret).build();
+        return minioClient;
+    }
+
     @Override
-    public ResponseData<FileEntity> uploadFile(MultipartFile[] files) {
+    public ResponseData<FileEntity> uploadFile(MultipartFile[] files, String bucketName) {
         if (files == null || files.length == 0) {
             return ResponseData.failure("上传的文件不能为空");
         }
@@ -42,7 +65,17 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
             }
             try {
                 File targetFile = new File(targetDir.getAbsoluteFile() + File.separator + fileName);
-                file.transferTo(targetFile); // 保存文件
+//                file.transferTo(targetFile); // 保存文件到本地
+                minioClient = this.get_minioClient();
+                boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+                if (!found) {
+                    minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+                }
+                minioClient.putObject(PutObjectArgs.builder()
+                        .bucket(bucketName)
+                        .object(fileName)
+                        .stream(file.getInputStream(), -1, 1024 * 1024 * 10) // 不得小于 5 Mib
+                        .build());
                 FileEntity fileEntity = new FileEntity();
                 fileEntity.setFileName(fileName);
                 fileEntity.setFilePath(targetFile.getAbsolutePath());
@@ -78,6 +111,24 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
         }
     }
 
+    @Override
+    public void downloadFileWithMinio(String fileName, String bucket, HttpServletResponse response, HttpServletResponse request) throws IOException, ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        // 设置响应类型
+        response.setCharacterEncoding(request.getCharacterEncoding());
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        // 获取文件流
+        minioClient = this.get_minioClient();
+        GetObjectResponse res = minioClient.getObject(GetObjectArgs.builder()
+                .bucket(bucket)
+                .object(fileName)
+                .build());
+        // 将文件流输出到响应流
+        IOUtils.copy(res, response.getOutputStream());
+        // 结束
+        response.flushBuffer();
+        res.close();
+    }
     @Override
     public ResponseData<Void> deleteFile(Integer fileId) {
         // 实现文件删除逻辑

@@ -124,6 +124,17 @@
             <version>2.9.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.11.0</version> <!-- 用于MinIO的HTTP客户端 -->
+        </dependency>
+
 
 
 

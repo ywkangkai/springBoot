@@ -3,9 +3,14 @@ package com.example.travel_project.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.travel_project.common.ResponseData;
 import com.example.travel_project.entity.FileEntity;
+
+import io.minio.errors.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 public interface FileService extends IService<FileEntity> {
 
@@ -14,7 +19,7 @@ public interface FileService extends IService<FileEntity> {
      * @param file 文件
      * @return ResponseData<FileEntity>
      */
-    ResponseData<FileEntity> uploadFile(MultipartFile[] file);
+    ResponseData<FileEntity> uploadFile(MultipartFile[] file, String bucketName);
 
     /**
      * 下载文件
@@ -29,4 +34,6 @@ public interface FileService extends IService<FileEntity> {
      * @return ResponseData<Void>
      */
     ResponseData<Void> deleteFile(Integer fileId);
+
+    void downloadFileWithMinio(String fileName, String bucket, HttpServletResponse response, HttpServletResponse request) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 }

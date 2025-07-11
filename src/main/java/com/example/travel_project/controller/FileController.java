@@ -17,12 +17,22 @@ public class FileController {
     FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseData uploadFile(@RequestBody MultipartFile[] files) {
-        return fileService.uploadFile(files);
+    public ResponseData uploadFile(MultipartFile[] files, @RequestParam String bucketName) {
+        return fileService.uploadFile(files, bucketName);
     }
 
     @GetMapping("/download/{fileName}")
     public void downloadFile(@PathVariable String fileName, HttpServletResponse response) {
         fileService.downloadFile(fileName, response);
+    }
+
+    @GetMapping("/downloadWithMinio/{fileName}")
+    public void downloadFileWithMinio(@PathVariable String fileName, @RequestParam String bucket, HttpServletResponse response) {
+        try {
+            fileService.downloadFileWithMinio(fileName, bucket, response, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -115,3 +115,12 @@ logging:
   file:
     name: logs/travel_project.log
 
+minio:
+  #账户
+  access: AKIAIOSFODNN7EXAMPLE
+  #存储桶名称
+  #bucket: test
+  #密钥
+  secret: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  #MinIO服务器地址
+  url: http://localhost:9001
