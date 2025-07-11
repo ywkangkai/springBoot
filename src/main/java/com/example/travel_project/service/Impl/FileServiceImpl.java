@@ -1,5 +1,6 @@
 package com.example.travel_project.service.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.travel_project.common.ResponseData;
 import com.example.travel_project.entity.FileEntity;
@@ -79,6 +80,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
                 fileEntity.setFileName(fileName);
                 fileEntity.setFilePath(targetFile.getAbsolutePath());
                 fileEntity.setFileSize(file.getSize());
+                fileEntity.setBucketName(bucketName);
                 super.save(fileEntity);
             }catch (Exception e) {
                 e.printStackTrace();
@@ -135,6 +137,11 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
                     .bucket(bucket) // 替换为实际的桶名
                     .object(fileName) // 假设 fileId 是文件名
                     .build());
+            // 删除数据库记录
+            FileEntity fileEntity = super.getOne(new QueryWrapper<FileEntity>().eq("file_name", fileName).eq("bucket_name", bucket));
+            if (fileEntity != null) {
+                super.removeById(fileEntity.getId());
+            }
             return ResponseData.success("文件删除成功");
         }catch (Exception e) {
             e.printStackTrace();

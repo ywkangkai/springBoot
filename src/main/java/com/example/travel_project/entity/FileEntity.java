@@ -17,4 +17,5 @@ public class FileEntity extends BaseEntity{
     private String fileName;
     private String filePath;
     private Long fileSize;
+    private String bucketName;
 }
