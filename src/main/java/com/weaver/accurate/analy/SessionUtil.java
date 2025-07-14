@@ -1,4 +1,4 @@
-package com.weaver.accurate.util;
+package com.weaver.accurate.analy;
 
 import com.weaver.accurate.entity.UserEntity;
 import lombok.Data;

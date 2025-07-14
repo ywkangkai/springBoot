@@ -2,15 +2,19 @@ package com.weaver.accurate.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.weaver.accurate.async.AsyncService;
 import com.weaver.accurate.common.ResponseData;
 import com.weaver.accurate.entity.FileEntity;
 import com.weaver.accurate.mapper.FileMapper;
 import com.weaver.accurate.service.FileService;
+import com.weaver.accurate.util.analyzeUtil;
 import io.minio.*;
 import io.minio.errors.*;
 import lombok.Data;
 import org.apache.commons.compress.utils.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,10 +26,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Data
 public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> implements FileService {
+    @Autowired
+    private AsyncService asyncService;
     @Value("${file.upload-dir}")
     private String uploadDir;
     private MinioClient minioClient;
@@ -74,6 +82,10 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
                         .stream(file.getInputStream(), -1, 1024 * 1024 * 10) // 不得小于 5 Mib
                         .build());
                 FileEntity fileEntity = new FileEntity();
+                boolean exists = super.getOne(new QueryWrapper<FileEntity>().eq("bucket_name", fileEntity.getBucketName())) != null;
+                if (exists) {
+                    return ResponseData.failure("目录名已存在");
+                }
                 fileEntity.setFileName(fileName);
                 fileEntity.setFilePath(targetFile.getAbsolutePath());
                 fileEntity.setFileSize(file.getSize());
@@ -144,5 +156,29 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
             e.printStackTrace();
             return ResponseData.failure("删除文件失败: " + e.getMessage());
         }
+    }
+
+    @Override
+    public ResponseData analyze(String filePath_1, String filePath_2, String server){
+//        List<FileEntity> files = super.list(new QueryWrapper<FileEntity>()
+//                .eq("bucket_name", bucketName)
+//                .orderByDesc("create_by_time"));
+//        if (files.size() != 2){
+//
+//        }
+//        FileEntity file1 = files.get(0);
+//        FileEntity file2 = files.get(1);
+        asyncService.ansync_war_jar(filePath_1, filePath_2, server);
+//        analyzeUtil analyzeUtil = new analyzeUtil(filePath_1, filePath_2, server);
+//        List<String> result = analyzeUtil.getResult();
+        return ResponseData.success("正在分析，请稍后查看结果");
+    }
+
+
+    @Async
+    public CompletableFuture<ResponseData> analyzeAsync(String filePath_1, String filePath_2, String server) {
+        // 异步执行分析任务
+        ResponseData responseData = analyze(filePath_1, filePath_2, server);
+        return CompletableFuture.completedFuture(responseData);
     }
 }

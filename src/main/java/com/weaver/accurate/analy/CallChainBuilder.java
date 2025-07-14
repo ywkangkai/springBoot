@@ -1,4 +1,4 @@
-package com.weaver.accurate.util;
+package com.weaver.accurate.analy;
 
 import java.util.ArrayList;
 import java.util.List;

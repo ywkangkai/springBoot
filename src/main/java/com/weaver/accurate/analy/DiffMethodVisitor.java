@@ -1,5 +1,6 @@
-package com.weaver.accurate.util;
+package com.weaver.accurate.analy;
 
+import com.weaver.accurate.util.MethodInstruction;
 import lombok.Getter;
 import org.objectweb.asm.Handle;
 import org.objectweb.asm.MethodVisitor;

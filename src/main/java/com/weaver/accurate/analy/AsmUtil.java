@@ -1,5 +1,6 @@
-package com.weaver.accurate.util;
+package com.weaver.accurate.analy;
 
+import com.weaver.accurate.util.MethodInstruction;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.objectweb.asm.ClassReader;

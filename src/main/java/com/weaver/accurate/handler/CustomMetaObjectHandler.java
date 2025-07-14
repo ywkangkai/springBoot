@@ -2,7 +2,7 @@ package com.weaver.accurate.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.weaver.accurate.entity.UserEntity;
-import com.weaver.accurate.util.SessionUtil;
+import com.weaver.accurate.analy.SessionUtil;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

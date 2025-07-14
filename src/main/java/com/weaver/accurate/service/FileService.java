@@ -37,5 +37,5 @@ public interface FileService extends IService<FileEntity> {
 
     void downloadFileWithMinio(String fileName, String bucket, HttpServletResponse response, HttpServletResponse request) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 
-
+    ResponseData analyze(String filePath_1, String filePath_2, String server);
 }

@@ -13,7 +13,7 @@ import com.weaver.accurate.service.AccountService;
 import com.weaver.accurate.service.UserService;
 import com.weaver.accurate.util.JWTUtil;
 import com.weaver.accurate.util.PasswordUtil;
-import com.weaver.accurate.util.SessionUtil;
+import com.weaver.accurate.analy.SessionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.weaver.accurate.util;
+package com.weaver.accurate.analy;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.*;

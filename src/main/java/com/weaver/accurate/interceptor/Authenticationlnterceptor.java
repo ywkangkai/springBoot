@@ -7,7 +7,7 @@ import com.weaver.accurate.annotation.UserRight;
 import com.weaver.accurate.common.ResponseData;
 import com.weaver.accurate.dto.account.LoginOutputDto;
 import com.weaver.accurate.util.JWTUtil;
-import com.weaver.accurate.util.SessionUtil;
+import com.weaver.accurate.analy.SessionUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -40,4 +40,9 @@ public class FileController {
     public ResponseData deleteFile(@RequestParam String bucket, @RequestParam String fileName) {
         return fileService.deleteFile(bucket, fileName);
     }
+
+    @PostMapping("/analyze")
+    public ResponseData analyze(@RequestParam String filePath_1, @RequestParam String filePath_2, @RequestParam String server) {
+        return fileService.analyze(filePath_1, filePath_2, server);
+    }
 }
