@@ -19,7 +19,7 @@ public interface FileService extends IService<FileEntity> {
      * @param file 文件
      * @return ResponseData<FileEntity>
      */
-    ResponseData<FileEntity> uploadFile(MultipartFile[] file, String bucketName);
+    ResponseData<FileEntity> uploadFileWithMinio(MultipartFile[] file, String bucketName);
 
     /**
      * 下载文件
@@ -37,5 +37,6 @@ public interface FileService extends IService<FileEntity> {
 
     void downloadFileWithMinio(String fileName, String bucket, HttpServletResponse response, HttpServletResponse request) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 
-    ResponseData analyze(String filePath_1, String filePath_2, String server);
+    ResponseData analyze(int id, String filePath_1, String filePath_2, String server);
+    ResponseData uploadFile(MultipartFile[] file, FileEntity fileEntity);
 }

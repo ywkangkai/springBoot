@@ -14,9 +14,11 @@ spring:
     password: Weaver#9#3
     driver-class-name: com.mysql.jdbc.Driver
     hikari:
-      idle-timeout: 60000
-      maximum-pool-size: 30
-      minimum-idle: 10
+      idle-timeout: 60000 # 连接池中连接的最大空闲时间，单位为毫秒
+      maximum-pool-size: 30 # 连接池的最大连接数
+      minimum-idle: 10 # 连接池的最小空闲连接数
+      max-lifetime: 1800000 # 表示连接的最大生命周期为30分钟
+      connection-timeout: 30000 # 连接池获取连接的最大等待时间，单位为毫秒
   application:
     name: travel_projectma
   jackson:
@@ -124,3 +126,32 @@ minio:
   secret: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
   #MinIO服务器地址
   url: http://localhost:9001
+
+user:
+  home: D:\JAVA
+
+git:
+  userName: lxinet #git用户名
+  password: ECdz8xwJgoH5KKnbKHU5 #git密码,这里可以配置token
+  local:
+    base:
+      dir: D:/JAVA
+  ssh:
+    priKey: D:/JAVA/.ssh/id_rsa
+
+svn:
+  userName: admin
+  password: 123456
+  local:
+    base:
+      dir: ${user.home}\svn-test
+
+maven:
+  home: D:/WEAVER/Maven/apache-maven-3.8.5-2
+
+root:
+  code:
+    path: src/main/java/ #代码的根目录，非标准maven项目需要自定义
+jacoco:
+  root:
+    path: D:/jacoco/root/ #jacoco报告的根目录

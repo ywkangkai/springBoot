@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weaver.accurate.mapper.FileMapper">
+
+	<update id="updateFileEntity" parameterType="FileEntity">
+		UPDATE tb_file
+		<if test="oldFileName!=null">
+			SET old_file_name = #{oldFileName},
+			    old_file_path = #{oldFilePath}
+		</if>
+		<if test="newFileName!=null">
+			SET new_file_name = #{newFileName},
+			    new_file_path = #{newFilePath}
+		</if>
+		WHERE id = #{id}
+	</update>
+</mapper>

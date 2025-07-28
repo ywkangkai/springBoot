@@ -50,7 +50,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
     }
 
     @Override
-    public ResponseData<FileEntity> uploadFile(MultipartFile[] files, String bucketName) {
+    public ResponseData<FileEntity> uploadFileWithMinio(MultipartFile[] files, String bucketName) {
         if (files == null || files.length == 0) {
             return ResponseData.failure("上传的文件不能为空");
         }
@@ -86,11 +86,52 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
                 if (exists) {
                     return ResponseData.failure("目录名已存在");
                 }
-                fileEntity.setFileName(fileName);
-                fileEntity.setFilePath(targetFile.getAbsolutePath());
-                fileEntity.setFileSize(file.getSize());
-                fileEntity.setBucketName(bucketName);
-                super.save(fileEntity);
+            }catch (Exception e) {
+                e.printStackTrace();
+                return ResponseData.failure("文件上传失败: " + e.getMessage());
+            }
+
+        }
+        return ResponseData.success("文件上传成功");
+    }
+
+    @Override
+    public ResponseData uploadFile(MultipartFile[] files, FileEntity fileEntity) {
+        if (files == null || files.length == 0) {
+            return ResponseData.failure("上传的文件不能为空");
+        }
+        for (MultipartFile file : files) {
+            if (file.isEmpty()) {
+                continue;
+            }
+            String fileName = file.getOriginalFilename();
+            String suffix = fileName.substring(fileName.lastIndexOf("."));
+            if (!".jar".equalsIgnoreCase(suffix) && ! ".war".equalsIgnoreCase(suffix) && !".jpg".equalsIgnoreCase(suffix)) {
+                return ResponseData.failure("只允许上传 .jar 或 .war 文件");
+            }
+//            String NenwFileName = UUID.randomUUID() + suffix;
+            File targetDir = new File(uploadDir+ File.separator + fileEntity.getBucketName());
+            if (!targetDir.exists()) {
+                targetDir.mkdirs(); // 创建目录
+            }
+            try {
+                File targetFile = new File(targetDir.getAbsoluteFile() + File.separator + fileName);
+                file.transferTo(targetFile); // 保存文件到本地
+                QueryWrapper <FileEntity> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("bucket_name", fileEntity.getBucketName());
+                FileEntity f = super.getOne(queryWrapper);
+                if (f != null) {
+                    fileEntity.setId(f.getId());
+                    if (fileEntity.getOldFileName() != null){
+                        fileEntity.setOldFilePath(targetFile.getAbsolutePath());
+                    }else {
+                        fileEntity.setNewFilePath(targetFile.getAbsolutePath());
+                    }
+                    baseMapper.updateFileEntity(fileEntity);
+                }else {
+                    super.save(fileEntity);
+                }
+
             }catch (Exception e) {
                 e.printStackTrace();
                 return ResponseData.failure("文件上传失败: " + e.getMessage());
@@ -159,7 +200,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
     }
 
     @Override
-    public ResponseData analyze(String filePath_1, String filePath_2, String server){
+    public ResponseData analyze(int id, String filePath_1, String filePath_2, String server){
 //        List<FileEntity> files = super.list(new QueryWrapper<FileEntity>()
 //                .eq("bucket_name", bucketName)
 //                .orderByDesc("create_by_time"));
@@ -172,13 +213,5 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileEntity> impleme
 //        analyzeUtil analyzeUtil = new analyzeUtil(filePath_1, filePath_2, server);
 //        List<String> result = analyzeUtil.getResult();
         return ResponseData.success("正在分析，请稍后查看结果");
-    }
-
-
-    @Async
-    public CompletableFuture<ResponseData> analyzeAsync(String filePath_1, String filePath_2, String server) {
-        // 异步执行分析任务
-        ResponseData responseData = analyze(filePath_1, filePath_2, server);
-        return CompletableFuture.completedFuture(responseData);
     }
 }

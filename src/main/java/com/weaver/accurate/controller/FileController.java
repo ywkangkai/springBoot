@@ -1,8 +1,10 @@
 package com.weaver.accurate.controller;
 
 import com.weaver.accurate.common.ResponseData;
+import com.weaver.accurate.entity.FileEntity;
 import com.weaver.accurate.service.FileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import okhttp3.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,9 +18,9 @@ public class FileController {
     @Autowired
     FileService fileService;
 
-    @PostMapping("/upload")
-    public ResponseData uploadFile(MultipartFile[] files, @RequestParam String bucketName) {
-        return fileService.uploadFile(files, bucketName);
+    @PostMapping("/uploadWithMinio")
+    public ResponseData uploadWithMinio(MultipartFile[] files, @RequestParam String bucketName) {
+        return fileService.uploadFileWithMinio(files, bucketName);
     }
 
     @GetMapping("/download/{fileName}")
@@ -41,8 +43,13 @@ public class FileController {
         return fileService.deleteFile(bucket, fileName);
     }
 
-    @PostMapping("/analyze")
-    public ResponseData analyze(@RequestParam String filePath_1, @RequestParam String filePath_2, @RequestParam String server) {
-        return fileService.analyze(filePath_1, filePath_2, server);
+    @PostMapping("/analyze/{id}")
+    public ResponseData analyze(@PathVariable int id, @RequestParam String old_filePath, @RequestParam String new_filePath, @RequestParam String module) {
+        return fileService.analyze(id, old_filePath, new_filePath, module);
+    }
+
+    @PostMapping(value = "/uploadFile")
+    public ResponseData uploadFile(MultipartFile[] file, @ModelAttribute FileEntity fileEntity) {
+        return fileService.uploadFile(file, fileEntity);
     }
 }
