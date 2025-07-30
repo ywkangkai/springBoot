@@ -7,6 +7,7 @@ import com.weaver.accurate.common.LoggerUtil;
 import com.weaver.accurate.common.OrikaMapperUtils;
 import com.weaver.accurate.dto.code.*;
 import com.weaver.accurate.enums.MethodNodeTypeEnum;
+import com.weaver.accurate.result.DeduceApiVO;
 import com.weaver.accurate.service.CodeDiffService;
 import com.weaver.accurate.util.FileUtils;
 import com.weaver.accurate.util.StringUtil;
@@ -14,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-
+import org.springframework.scheduling.annotation.Async;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.*;
@@ -47,8 +48,13 @@ public class DeduceApiService {
      * @param diffMethodParams diff方法参数
      * @return {@link ApiModify}
      */
+    @Async
     public ApiModify deduceApi(DiffMethodParams diffMethodParams) {
-        ApiModify apiModify = ApiModify.builder().httpApiModifies(new HashSet<>()).dubboApiModifies(new HashSet<>()).customClassModifies(new HashSet<>()).customMethodSignModifies(new HashSet<>()).build();
+        ApiModify apiModify = new ApiModify();
+        apiModify.setHttpApiModifies(new HashSet<>());
+        apiModify.setDubboApiModifies(new HashSet<>());
+        apiModify.setCustomClassModifies(new HashSet<>());
+        apiModify.setCustomMethodSignModifies(new HashSet<>());
         //先获取源码,获取差异代码
         DiffInfo diffCode = codeDiffService.getDiffCode(diffMethodParams);
         //然后编译源码
@@ -92,6 +98,8 @@ public class DeduceApiService {
         modifyList.addAll(addClassNames);
         modifyList.addAll(modifyMethodSigns);
         getDiffApi(methodsInvokeLink, modifyList, apiModify);
+        DeduceApiVO deduceApiVO = OrikaMapperUtils.map(apiModify, DeduceApiVO.class);
+        LoggerUtil.info(log, JSON.toJSONString(deduceApiVO, true));
         return apiModify;
     }
 

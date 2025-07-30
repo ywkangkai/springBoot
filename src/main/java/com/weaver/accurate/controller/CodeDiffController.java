@@ -69,7 +69,7 @@ public class CodeDiffController {
 
     @ApiOperation("git获取影响接口")
     @RequestMapping(value = "git/deduce/api", method = RequestMethod.GET)
-    public ApiResponse<DeduceApiVO> getGitDeduceApiList(
+    public ApiResponse getGitDeduceApiList(
             @ApiParam(required = true, name = "gitUrl", value = "git远程仓库地址")
             @NotEmpty
             @RequestParam(value = "gitUrl") String gitUrl,
@@ -86,8 +86,9 @@ public class CodeDiffController {
                 .codeManageTypeEnum(CodeManageTypeEnum.GIT)
                 .build();
         ApiModify apiModify = deduceApiService.deduceApi(diffMethodParams);
-        DeduceApiVO deduceApiVO = OrikaMapperUtils.map(apiModify, DeduceApiVO.class);
-        return new ApiResponse<DeduceApiVO>().success(deduceApiVO);
+//        DeduceApiVO deduceApiVO = OrikaMapperUtils.map(apiModify, DeduceApiVO.class);
+//        return new ApiResponse<DeduceApiVO>().success(deduceApiVO);
+        return new ApiResponse(200, "正在分析请稍后");
     }
 
 

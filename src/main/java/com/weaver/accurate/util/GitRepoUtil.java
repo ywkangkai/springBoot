@@ -24,7 +24,7 @@ import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.util.FS;
 import org.eclipse.jgit.util.FileUtils;
 import org.springframework.util.StringUtils;
-
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import java.io.File;
 import java.io.IOException;
 
@@ -40,15 +40,16 @@ public class GitRepoUtil {
             git.pull().setCredentialsProvider(new UsernamePasswordCredentialsProvider(gitUserName, gitPassWord)).call();
             return git;
         }
-        CloneCommand cloneCommand = Git.cloneRepository()
+        CloneCommand gits = Git.cloneRepository()
                 .setURI(gitUrl)
-                .setCredentialsProvider(new UsernamePasswordCredentialsProvider(gitUserName, gitPassWord))
-                .setDirectory(new File(codePath));
+                .setDirectory(new File(codePath))
+
+                .setCredentialsProvider(new UsernamePasswordCredentialsProvider(gitUserName, gitPassWord));
         //说明不是commit_id
         if(COMMIT_ID_LENGTH != commitId.length()){
-            cloneCommand.setBranch(commitId);
+            gits.setBranch(commitId);
         }
-        return cloneCommand.call();
+        return gits.call();
     }
 
 

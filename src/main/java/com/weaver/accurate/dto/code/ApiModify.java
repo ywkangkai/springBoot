@@ -16,6 +16,7 @@ import java.util.Set;
  * <p>
  */
 @Data
+//它可以自动生成一个静态内部类（Builder 类）以及相关的链式调用方法，用于构建对象
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

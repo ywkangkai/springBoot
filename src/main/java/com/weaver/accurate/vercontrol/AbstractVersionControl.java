@@ -109,9 +109,20 @@ public abstract class AbstractVersionControl {
             return null;
         }
         LoggerUtil.info(log, "需要对比的差异类数", versionControlDto.getDiffClasses().size());
+        /*
         List<CompletableFuture<DiffClassInfoResult>> priceFuture = versionControlDto.getDiffClasses().stream()
                 .map(item -> getClassMethods(getLocalOldPath(item.getNewPath()), getLocalNewPath(item.getNewPath()), item))
                 .collect(Collectors.toList());
+        */
+        List<CompletableFuture<DiffClassInfoResult>> priceFuture = new ArrayList<>();
+        for (DiffEntryDto item : versionControlDto.getDiffClasses()) {
+            CompletableFuture<DiffClassInfoResult> future = getClassMethods(
+                    getLocalOldPath(item.getNewPath()),
+                    getLocalNewPath(item.getNewPath()),
+                    item
+            );
+            priceFuture.add(future);
+        }
         CompletableFuture.allOf(priceFuture.toArray(new CompletableFuture[0])).join();
         List<DiffClassInfoResult> list = priceFuture.stream().map(CompletableFuture::join).filter(Objects::nonNull).collect(Collectors.toList());
         if (!CollectionUtils.isEmpty(list)) {
@@ -166,15 +177,6 @@ public abstract class AbstractVersionControl {
             } else {
                 className = "";
             }
-            //新增类直接标记，不用计算方法
-//            if (DiffEntry.ChangeType.ADD.equals(diffEntry.getChangeType())) {
-//                return DiffClassInfoResult.builder()
-//                        .classFile(className)
-//                        .type(DiffEntry.ChangeType.ADD.name())
-//                        .moduleName(moduleName)
-//                        .lines(diffEntry.getLines())
-//                        .build();
-//            }
             List<MethodInfoResult> diffMethods;
             //获取新类的所有方法
             List<MethodInfoResult> newMethodInfoResults = MethodParserUtils.parseMethods(mewClassFile, customizeConfig.getRootCodePath());
@@ -210,6 +212,4 @@ public abstract class AbstractVersionControl {
                     .build();
         }, executor);
     }
-
-
 }

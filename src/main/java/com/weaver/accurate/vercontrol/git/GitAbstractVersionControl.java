@@ -85,14 +85,16 @@ public class GitAbstractVersionControl extends AbstractVersionControl {
                 LoggerUtil.info(log, "没有需要对比的类");
                 return;
             }
+            //按DiffEntryDto类型将validDiffList转换为DiffEntryDto列表
             List<DiffEntryDto> diffEntries = OrikaMapperUtils.mapList(validDiffList, DiffEntry.class, DiffEntryDto.class);
-
+            //将 diffEntries 列表转换为一个以 newPath 为键、DiffEntryDto 对象为值的 Map
             Map<String, DiffEntryDto> diffMap = diffEntries.stream().collect(Collectors.toMap(DiffEntryDto::getNewPath, Function.identity()));
             LoggerUtil.info(log, "需要对比的差异类为：", JSON.toJSON(diffEntries));
+            //DiffFormatter 用来解析 DiffEntry 对象的变更行信息，并将新增或修改的行记录下来
             DiffFormatter diffFormatter = new DiffFormatter(DisabledOutputStream.INSTANCE);
             diffFormatter.setRepository(nowGit.getRepository());
             diffFormatter.setContext(0);
-            //此处是获取变更行，有群友需求新增行或变更行要在类中打标记，此处忽略删除行
+            //此处是获取变更行
             for (DiffEntry diffClass : validDiffList) {
                 //获取变更行
                 EditList edits = diffFormatter.toFileHeader(diffClass).toEditList();

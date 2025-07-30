@@ -49,14 +49,10 @@ public class MethodParserUtils {
     public static List<MethodInfoResult> parseMethods(String classFile, String rootCodePath) {
         List<MethodInfoResult> list = new ArrayList<>();
         try (FileInputStream in = new FileInputStream(classFile)) {
+            // 使用JavaParser解析类文件
             JavaParser javaParser = new JavaParser();
+            //JavaParser 解析输入流 in（表示一个 Java 源文件），并获取解析结果 CompilationUnit（抽象语法树的根节点）。如果解析失败，则抛出自定义异常 BizException
             CompilationUnit cu = javaParser.parse(in).getResult().orElseThrow(() -> new BizException(BizCode.PARSE_JAVA_FILE));
-            //由于jacoco不会统计接口覆盖率，没比较计算接口的方法，此处排除接口类 TODO 这样会排除mapper层
-//            final List<?> types = cu.getTypes();
-//            boolean isInterface = types.stream().filter(t -> t instanceof ClassOrInterfaceDeclaration).anyMatch(t -> ((ClassOrInterfaceDeclaration) t).isInterface());
-//            if (isInterface) {
-//                return list;
-//            }
             removeComments(cu);
             cu.accept(new MethodVisitor(), list);
             return list;
